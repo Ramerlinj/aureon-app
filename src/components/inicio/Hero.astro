@@ -1,0 +1,50 @@
+---
+import HeroBackground from "@/components/inicio/HeroBackground.astro";
+---
+
+<section
+  class="relative isolate min-h-[99vh] overflow-hidden bg-[#030303]"
+  aria-label="Hero principal"
+>
+    <HeroBackground />
+  <div
+    class="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_20%_30%,rgba(120,160,255,0.14),transparent_42%)]"
+  >
+  </div>
+
+  <div
+    class="relative z-20 mx-auto flex min-h-[99vh] w-full max-w-6xl items-center px-6 pb-16 pt-32 sm:px-10 sm:pt-36"
+  >
+    <div class="max-w-xl space-y-6">
+      <h1
+        class="text-balance text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-white sm:text-6xl md:text-7xl"
+      >
+        NO LE DES
+        <br />
+        MAS VUELTAS!
+      </h1>
+
+      <p
+        class="max-w-md text-pretty text-xl font-semibold text-zinc-400 sm:text-2xl"
+      >
+        Unete a nosotros y se nuestro esclavo. cambia el mundo
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a
+          href="#"
+          class="inline-flex h-12 min-w-40 items-center justify-center rounded-lg border border-white/35 bg-black/10 px-6 text-base font-semibold text-white transition duration-200 hover:border-white/60 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+        >
+          Unete ya!
+        </a>
+
+        <a
+          href="#"
+          class="inline-flex h-12 min-w-40 items-center justify-center rounded-lg border border-transparent bg-white/10 px-6 text-base font-semibold text-slate-100 transition duration-200 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+        >
+          Ver proyectos
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
