@@ -1,42 +1,52 @@
 ---
-const links = ["inicio", "inicio", "inicio", "inicio", "inicio"];
+const links = [
+  { label: "Soluciones", href: "/#soluciones" },
+  { label: "Proceso", href: "/#proceso" },
+  { label: "Proyectos", href: "/#proyectos" },
+  { label: "Testimonios", href: "/#testimonios" },
+];
 import { ModeToggle } from "@/components/ModeToggle";
 ---
 
-<header class="px-3 pt-3 sm:px-4 sm:pt-4 fixed top-0 left-0 w-full z-50">
+<header class="fixed left-0 top-0 z-50 w-full px-3 pt-3 sm:px-6 sm:pt-5">
   <nav
-    class="mx-auto grid w-1/2 max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-2 overflow-hidden rounded-2xl border border-white/10 bg-[radial-gradient(120%_120%_at_0%_50%,rgba(120,160,255,0.14),transparent_42%),radial-gradient(120%_120%_at_100%_50%,rgba(0,190,255,0.09),transparent_46%),#090b10] px-3 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur max-sm:grid-cols-[auto_auto] max-sm:justify-between max-sm:gap-y-2"
+    class="mx-auto grid w-full max-w-3xl grid-cols-[auto_1fr_auto] items-center gap-3 overflow-hidden rounded-2xl border border-white/12 bg-[radial-gradient(120%_130%_at_0%_40%,rgba(132,160,255,0.12),transparent_42%),radial-gradient(120%_130%_at_100%_50%,rgba(0,190,255,0.08),transparent_44%),#090b10] px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_10px_30px_rgba(0,0,0,0.4)] backdrop-blur-md"
     aria-label="Navegacion principal"
   >
     <a
       href="/"
-      class="inline-flex items-center gap-2 text-slate-100 no-underline"
+      class="inline-flex items-center gap-2.5 text-slate-100 no-underline"
     >
       <span
-        class="grid h-5 w-5 place-items-center rounded-md border border-white/20 text-xs font-bold tracking-[0.04em]"
+        class="grid h-6 w-6 place-items-center rounded-md border border-white/25 bg-white/6 text-xs font-bold tracking-[0.04em]"
       >
-        L
+        A
       </span>
+      <span
+        class="hidden text-sm font-semibold tracking-[0.08em] text-zinc-100 sm:inline"
+        >AUREON</span
+      >
     </a>
 
     <ul
-      class="mx-auto flex min-w-0 list-none items-center justify-center gap-4 px-0 text-sm sm:gap-7 max-sm:order-3 max-sm:col-span-2 max-sm:w-full max-sm:justify-start max-sm:overflow-x-auto max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden"
+      class="mx-auto flex min-w-0 list-none items-center justify-center gap-1 overflow-x-auto px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {
-        links.map((label, index) => (
+        links.map((link) => (
           <li>
             <a
-              href="#"
-              aria-label={`${label} ${index + 1}`}
-              class="whitespace-nowrap text-slate-100/90 no-underline transition-opacity duration-200 hover:opacity-100 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+              href={link.href}
+              class="inline-flex whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-zinc-300/95 no-underline transition duration-200 hover:bg-white/8 hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
             >
-              {label}
+              {link.label}
             </a>
           </li>
         ))
       }
     </ul>
 
-    <ModeToggle client:load />
+    <div class="flex items-center justify-end">
+      <ModeToggle client:load />
+    </div>
   </nav>
 </header>
