@@ -1,0 +1,317 @@
+---
+
+---
+
+<section
+  class="relative overflow-hidden bg-[#02050b] py-20 sm:py-24"
+  aria-label="Cuenta regresiva"
+>
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(126,18,38,0.1),transparent_56%)]"
+  >
+  </div>
+
+  <div class="relative mx-auto w-full max-w-6xl px-6 sm:px-10">
+    <div
+      class="counter-shell rounded-[2rem] border border-white/10 px-4 py-10 sm:px-8 sm:py-12 md:px-10"
+    >
+      <div class="counter-grid" data-countdown>
+        <article class="counter-unit">
+          <div class="counter-digits" data-unit="days">
+            <span class="digit" data-index="0"
+              ><span class="digit-current">2</span><span class="digit-next"
+                >2</span
+              ></span
+            >
+            <span class="digit" data-index="1"
+              ><span class="digit-current">5</span><span class="digit-next"
+                >5</span
+              ></span
+            >
+          </div>
+          <p class="counter-label">Dia</p>
+        </article>
+
+        <article class="counter-unit">
+          <div class="counter-digits" data-unit="hours">
+            <span class="digit" data-index="0"
+              ><span class="digit-current">0</span><span class="digit-next"
+                >0</span
+              ></span
+            >
+            <span class="digit" data-index="1"
+              ><span class="digit-current">0</span><span class="digit-next"
+                >0</span
+              ></span
+            >
+          </div>
+          <p class="counter-label">Hora</p>
+        </article>
+
+        <article class="counter-unit">
+          <div class="counter-digits" data-unit="minutes">
+            <span class="digit" data-index="0"
+              ><span class="digit-current">0</span><span class="digit-next"
+                >0</span
+              ></span
+            >
+            <span class="digit" data-index="1"
+              ><span class="digit-current">0</span><span class="digit-next"
+                >0</span
+              ></span
+            >
+          </div>
+          <p class="counter-label">Minuto</p>
+        </article>
+
+        <article class="counter-unit">
+          <div class="counter-digits" data-unit="seconds">
+            <span class="digit" data-index="0"
+              ><span class="digit-current">0</span><span class="digit-next"
+                >0</span
+              ></span
+            >
+            <span class="digit" data-index="1"
+              ><span class="digit-current">0</span><span class="digit-next"
+                >0</span
+              ></span
+            >
+          </div>
+          <p class="counter-label">Segundo</p>
+        </article>
+      </div>
+      <p
+        class="mt-6 text-center text-sm font-semibold uppercase tracking-[0.24em] text-zinc-300 sm:mt-8 sm:text-base"
+      >
+        Faltan para el gran dia
+      </p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const countdownRoot = document.querySelector("[data-countdown]");
+    if (!countdownRoot) return;
+
+    const storageKey = "aureon-countdown-target";
+    const now = Date.now();
+    const dayMs = 24 * 60 * 60 * 1000;
+
+    const storedTarget = Number(localStorage.getItem(storageKey));
+    const target =
+      Number.isFinite(storedTarget) && storedTarget > now
+        ? storedTarget
+        : now + 25 * dayMs;
+
+    if (!storedTarget || storedTarget <= now) {
+      localStorage.setItem(storageKey, String(target));
+    }
+
+    const daysEl = countdownRoot.querySelector('[data-unit="days"]');
+    const hoursEl = countdownRoot.querySelector('[data-unit="hours"]');
+    const minutesEl = countdownRoot.querySelector('[data-unit="minutes"]');
+    const secondsEl = countdownRoot.querySelector('[data-unit="seconds"]');
+
+    const pad = (value) => String(value).padStart(2, "0");
+
+    const setDigits = (unitEl, value, initial = false) => {
+      if (!unitEl) return;
+      const chars = pad(value).slice(-2).split("");
+      const digitEls = unitEl.querySelectorAll(".digit");
+
+      digitEls.forEach((digitEl, index) => {
+        const currentEl = digitEl.querySelector(".digit-current");
+        const nextEl = digitEl.querySelector(".digit-next");
+        if (!currentEl || !nextEl) return;
+
+        const nextChar = chars[index] ?? "0";
+        if (initial || currentEl.textContent === nextChar) {
+          currentEl.textContent = nextChar;
+          nextEl.textContent = nextChar;
+          return;
+        }
+
+        nextEl.textContent = nextChar;
+        digitEl.classList.remove("is-falling");
+        void digitEl.offsetWidth;
+        digitEl.classList.add("is-falling");
+
+        digitEl.addEventListener(
+          "animationend",
+          () => {
+            currentEl.textContent = nextChar;
+            nextEl.textContent = nextChar;
+            digitEl.classList.remove("is-falling");
+          },
+          { once: true },
+        );
+      });
+    };
+
+    const update = () => {
+      const distance = Math.max(0, target - Date.now());
+      const days = Math.floor(distance / dayMs);
+      const hours = Math.floor((distance % dayMs) / (60 * 60 * 1000));
+      const minutes = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000));
+      const seconds = Math.floor((distance % (60 * 1000)) / 1000);
+
+      setDigits(daysEl, days, firstRun);
+      setDigits(hoursEl, hours, firstRun);
+      setDigits(minutesEl, minutes, firstRun);
+      setDigits(secondsEl, seconds, firstRun);
+      firstRun = false;
+    };
+
+    let firstRun = true;
+    update();
+    setInterval(update, 1000);
+  })();
+</script>
+
+<style>
+  .counter-shell {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.01)
+      ),
+      linear-gradient(
+        124deg,
+        rgba(11, 14, 20, 0.95) 0%,
+        rgba(24, 13, 17, 0.93) 42%,
+        rgba(8, 10, 14, 0.96) 100%
+      );
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.09),
+      0 35px 80px -50px rgba(0, 0, 0, 0.95),
+      0 0 0 1px rgba(124, 33, 49, 0.12);
+  }
+
+  .counter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .counter-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 1.2rem;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(15, 18, 24, 0.2)
+    );
+    padding: 1rem 0.8rem;
+  }
+
+  .counter-digits {
+    display: flex;
+    gap: 0.1em;
+  }
+
+  .digit {
+    position: relative;
+    height: 1em;
+    width: 0.68em;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .digit-current,
+  .digit-next {
+    position: absolute;
+    inset: 0;
+    display: block;
+    text-align: center;
+  }
+
+  .digit-current {
+    transform: translateY(0);
+  }
+
+  .digit-next {
+    transform: translateY(-115%);
+  }
+
+  .digit.is-falling .digit-current {
+    animation: digitOut 420ms cubic-bezier(0.18, 0.72, 0.24, 1) forwards;
+  }
+
+  .digit.is-falling .digit-next {
+    animation: digitIn 420ms cubic-bezier(0.18, 0.72, 0.24, 1) forwards;
+  }
+
+  .counter-digits,
+  .digit {
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(3.2rem, 13vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: #fff;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+  }
+
+  .counter-label {
+    margin-top: 0.65rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(228, 231, 235, 0.74);
+  }
+
+  @keyframes digitIn {
+    0% {
+      transform: translateY(-115%);
+      opacity: 0.45;
+    }
+
+    80% {
+      transform: translateY(7%);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes digitOut {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(116%);
+      opacity: 0.15;
+    }
+  }
+
+  @media (min-width: 820px) {
+    .counter-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .counter-unit {
+      padding: 1.4rem 0.7rem 1.2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .digit.is-falling .digit-current,
+    .digit.is-falling .digit-next {
+      animation: none;
+    }
+  }
+</style>

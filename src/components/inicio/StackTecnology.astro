@@ -1,0 +1,75 @@
+---
+import { Atom, Database, Cloud, Code2, Container, Figma } from "@lucide/astro";
+
+const techStack = [
+  { name: "React", icon: Atom },
+  { name: "Postgrest", icon: Database },
+  { name: "AWS", icon: Cloud },
+  { name: "Python", icon: Code2 },
+  { name: "Docker", icon: Container },
+  { name: "Figma", icon: Figma },
+];
+
+const marqueeStack = [...techStack, ...techStack];
+---
+
+<section
+  class="relative overflow-hidden bg-[#030507] py-16 sm:py-20"
+  aria-label="Ecosistema tecnológico"
+>
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_-30%,rgba(255,255,255,0.08),transparent_50%)]"
+  >
+  </div>
+
+  <div class="relative mx-auto w-full max-w-6xl px-6 sm:px-10">
+    <h2
+      class="text-center text-3xl font-medium tracking-[0.08em] text-zinc-500 sm:text-4xl"
+    >
+      Ecosistema Tecnológico
+    </h2>
+
+    <div
+      class="mt-10 overflow-hidden [mask:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+    >
+      <div class="tech-marquee flex w-max">
+        {
+          marqueeStack.map(({ name, icon: Icon }) => (
+            <article class="flex w-36 shrink-0 flex-col items-center justify-center text-center">
+              <Icon
+                class="mt-2 h-10 w-10 text-zinc-600 "
+                stroke-width={1.5}
+              />
+              <p class="mt-1 text-sm font-semibold tracking-tight text-zinc-500">
+                {name}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-marquee {
+    animation: tech-scroll-right 28s linear infinite;
+  }
+
+  @keyframes tech-scroll-right {
+    from {
+      transform: translateX(-50%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tech-marquee {
+      animation: none;
+      transform: translateX(0);
+    }
+  }
+</style>
