@@ -1,0 +1,147 @@
+---
+import { Star, Quote } from "@lucide/astro";
+
+const testimonials = [
+  {
+    name: "Camila Torres",
+    role: "CEO, Nexo Labs",
+    avatar: "CT",
+    rating: 5,
+    quote:
+      "Trabajar con el equipo fue una experiencia impecable: claridad, velocidad y una ejecucion que supero nuestras expectativas.",
+  },
+  {
+    name: "Jorge Ramirez",
+    role: "Founder, Auralink",
+    avatar: "JR",
+    rating: 5,
+    quote:
+      "Transformaron una idea compleja en una plataforma robusta y elegante. La calidad tecnica y visual fue excelente.",
+  },
+  {
+    name: "Valentina Cruz",
+    role: "Product Lead, Vesta",
+    avatar: "VC",
+    rating: 4,
+    quote:
+      "Siempre hubo comunicacion clara y decisiones bien argumentadas. El resultado final se sintio premium desde el primer release.",
+  },
+  {
+    name: "Mateo Silva",
+    role: "COO, Horizonte",
+    avatar: "MS",
+    rating: 5,
+    quote:
+      "Nos entregaron una solucion confiable y con mucho detalle en UX. El proceso fue ordenado, rapido y sin fricciones.",
+  },
+];
+
+const testimonialTrack = [...testimonials, ...testimonials];
+---
+
+<section
+  class="relative overflow-hidden bg-[#02050b] py-20 sm:py-24"
+  aria-label="Testimonios"
+>
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.05),transparent_46%)]"
+  >
+  </div>
+
+  <div class="relative mx-auto w-full max-w-6xl px-6 sm:px-10">
+    <header class="mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        Testimonios
+      </h2>
+      <p class="mt-3 text-xl uppercase tracking-[0.18em] text-zinc-500">
+        HBLAS
+      </p>
+    </header>
+
+    <div
+      class="mt-12 overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+    >
+      <div class="testimonial-track flex w-max gap-5 sm:gap-6">
+        {
+          testimonialTrack.map((item) => (
+            <article class="w-68 shrink-0 border border-zinc-800/90 bg-zinc-950/60 p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.01)] backdrop-blur-[1px] sm:w-84 sm:p-6">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div
+                    class="grid h-11 w-11 place-items-center rounded-full bg-linear-to-br from-zinc-700 to-zinc-900 text-sm font-semibold text-zinc-100"
+                    aria-hidden="true"
+                  >
+                    {item.avatar}
+                  </div>
+                  <div>
+                    <h3 class="text-base font-semibold text-zinc-100">
+                      {item.name}
+                    </h3>
+                    <p class="text-sm text-zinc-400">{item.role}</p>
+                  </div>
+                </div>
+                <Quote class="h-5 w-5 text-zinc-600" stroke-width={1.6} />
+              </div>
+
+              <div
+                class="mt-4 flex items-center gap-1.5"
+                aria-label={`Valoracion ${item.rating} de 5`}
+              >
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Star
+                    class={`h-4 w-4 ${index < item.rating ? "fill-[#b58a32] text-[#b58a32]" : "text-zinc-700"}`}
+                    stroke-width={1.8}
+                  />
+                ))}
+              </div>
+
+              <p class="mt-4 text-base leading-relaxed text-zinc-300 sm:text-lg">
+                {item.quote}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-track {
+    animation: testimonials-left 36s linear infinite;
+    will-change: transform;
+  }
+
+  .testimonial-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes testimonials-left {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-50% - 0.75rem));
+    }
+  }
+
+  @media (min-width: 640px) {
+    @keyframes testimonials-left {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(calc(-50% - 0.875rem));
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-track {
+      animation: none;
+      transform: translateX(0);
+    }
+  }
+</style>
