@@ -3,6 +3,11 @@ import Hero from "../components/inicio/Hero.astro";
 import Solutions from "../components/inicio/Solutions.astro";
 import Layout from "../layouts/Layout.astro";
 import SolutionsExpert from "@/components/inicio/SolutionsExpert.astro";
+import StackTecnology from "@/components/inicio/StackTecnology.astro";
+import WeProcess from "@/components/inicio/WeProcess.astro";
+import OnlyProyectos from "@/components/inicio/OnlyProyectos.astro";
+import Testimonials from "@/components/inicio/Testimonials.astro";
+import Cta from "@/components/inicio/Cta.astro";
 ---
 
 <script is:inline>
@@ -28,7 +33,26 @@ import SolutionsExpert from "@/components/inicio/SolutionsExpert.astro";
 </script>
 
 <Layout>
-  <Hero />
-  <Solutions />
+  <div id="inicio">
+    <Hero />
+  </div>
+  <div id="soluciones">
+    <Solutions />
+  </div>
   <SolutionsExpert />
+  <div id="proceso">
+    <WeProcess />
+  </div>
+  <div id="stack">
+    <StackTecnology />
+  </div>
+  <div id="proyectos">
+    <OnlyProyectos />
+  </div>
+  <div id="testimonios">
+    <Testimonials />
+  </div>
+  <div id="countdown">
+    <Cta />
+  </div>
 </Layout>
