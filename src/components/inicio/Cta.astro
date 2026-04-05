@@ -24,12 +24,12 @@
               ></span
             >
             <span class="digit" data-index="1"
-              ><span class="digit-current">5</span><span class="digit-next"
-                >5</span
+              ><span class="digit-current">4</span><span class="digit-next"
+                >4</span
               ></span
             >
           </div>
-          <p class="counter-label">Dia</p>
+          <p class="counter-label">Dias</p>
         </article>
 
         <article class="counter-unit">
@@ -45,7 +45,7 @@
               ></span
             >
           </div>
-          <p class="counter-label">Hora</p>
+          <p class="counter-label">Horas</p>
         </article>
 
         <article class="counter-unit">
@@ -61,7 +61,7 @@
               ></span
             >
           </div>
-          <p class="counter-label">Minuto</p>
+          <p class="counter-label">Minutos</p>
         </article>
 
         <article class="counter-unit">
@@ -77,7 +77,7 @@
               ></span
             >
           </div>
-          <p class="counter-label">Segundo</p>
+          <p class="counter-label">Segundos</p>
         </article>
       </div>
       <p
@@ -94,19 +94,18 @@
     const countdownRoot = document.querySelector("[data-countdown]");
     if (!countdownRoot) return;
 
-    const storageKey = "aureon-countdown-target";
-    const now = Date.now();
+    const nowDate = new Date();
+    const targetDate = new Date(
+      nowDate.getFullYear(),
+      nowDate.getMonth(),
+      24,
+      0,
+      0,
+      0,
+      0,
+    );
+    const target = targetDate.getTime();
     const dayMs = 24 * 60 * 60 * 1000;
-
-    const storedTarget = Number(localStorage.getItem(storageKey));
-    const target =
-      Number.isFinite(storedTarget) && storedTarget > now
-        ? storedTarget
-        : now + 25 * dayMs;
-
-    if (!storedTarget || storedTarget <= now) {
-      localStorage.setItem(storageKey, String(target));
-    }
 
     const daysEl = countdownRoot.querySelector('[data-unit="days"]');
     const hoursEl = countdownRoot.querySelector('[data-unit="hours"]');
