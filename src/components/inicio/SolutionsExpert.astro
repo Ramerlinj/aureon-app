@@ -5,6 +5,7 @@
 <section
   class="relative overflow-hidden bg-[#02050b] py-20 sm:py-24"
   aria-label="Soluciones expertas"
+  data-home-section
 >
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.05),transparent_44%)]"
@@ -12,29 +13,84 @@
   </div>
 
   <div class="relative mx-auto w-full max-w-6xl px-6 sm:px-10">
-    <header class="mx-auto max-w-3xl text-center">
+    <header class="mx-auto max-w-3xl text-center" data-reveal-group>
       <h2
         class="text-4xl font-extrabold uppercase tracking-tight text-white sm:text-5xl"
+        data-reveal
       >
         SOLUCIONES EXPERTAS
       </h2>
-      <p class="mt-6 text-xl text-zinc-400">
+      <p class="mt-6 text-xl text-zinc-400" data-reveal>
         Algunos de los proyectos que reflejan nuestra forma de trabajar
       </p>
     </header>
 
-    <div class="mt-12 grid gap-8 sm:mt-14 md:grid-cols-2 lg:grid-cols-3">
+    <div
+      class="mt-12 grid gap-8 sm:mt-14 md:grid-cols-2 lg:grid-cols-3"
+      data-reveal-group
+    >
       <article
-        class="h-80 rounded-2xl border border-zinc-700/70 bg-zinc-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-96"
+        class="group relative h-80 overflow-hidden rounded-2xl border border-zinc-700/70 bg-zinc-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-96"
+        data-reveal
       >
+        <img
+          src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+          alt="Proyecto de infraestructura de redes empresariales"
+          class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"
+        >
+        </div>
+        <p
+          class="absolute bottom-4 left-4 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-100"
+        >
+          Redes
+        </p>
       </article>
       <article
-        class="h-80 rounded-2xl border border-zinc-700/70 bg-zinc-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-96"
+        class="group relative h-80 overflow-hidden rounded-2xl border border-zinc-700/70 bg-zinc-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-96"
+        data-reveal
       >
+        <img
+          src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1200&q=80"
+          alt="Proyecto de desarrollo de software para producto digital"
+          class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"
+        >
+        </div>
+        <p
+          class="absolute bottom-4 left-4 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-100"
+        >
+          Software
+        </p>
       </article>
       <article
-        class="h-80 rounded-2xl border border-zinc-700/70 bg-zinc-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-96"
+        class="group relative h-80 overflow-hidden rounded-2xl border border-zinc-700/70 bg-zinc-950/70 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] sm:h-96"
+        data-reveal
       >
+        <img
+          src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80"
+          alt="Proyecto de robotica aplicada en industria"
+          class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"
+        >
+        </div>
+        <p
+          class="absolute bottom-4 left-4 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-100"
+        >
+          Robotica
+        </p>
       </article>
     </div>
   </div>
