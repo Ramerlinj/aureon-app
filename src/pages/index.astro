@@ -56,3 +56,134 @@ import Cta from "@/components/inicio/Cta.astro";
     <Cta />
   </div>
 </Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const animateHome = () => {
+    const heroTitle = document.querySelector("#inicio h1");
+    const heroCopy = document.querySelector("#inicio p");
+    const heroButtons = gsap.utils.toArray("#inicio a");
+    const sections = gsap.utils.toArray("[data-home-section]");
+    const revealGroups = gsap.utils.toArray("[data-reveal-group]");
+    const revealItems = gsap.utils.toArray("[data-reveal]");
+
+    if (heroTitle) {
+      gsap.fromTo(
+        heroTitle,
+        { y: 56, opacity: 0, filter: "blur(8px)" },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 1,
+          ease: "power4.out",
+        },
+      );
+    }
+
+    if (heroCopy) {
+      gsap.fromTo(
+        heroCopy,
+        { y: 34, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          delay: 0.18,
+          ease: "power3.out",
+        },
+      );
+    }
+
+    if (heroButtons.length) {
+      gsap.fromTo(
+        heroButtons,
+        { y: 18, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.72,
+          delay: 0.35,
+          ease: "power3.out",
+          stagger: 0.12,
+        },
+      );
+    }
+
+    sections.forEach((section) => {
+      gsap.fromTo(
+        section,
+        { opacity: 0.45, y: 46 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 78%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    });
+
+    revealGroups.forEach((group) => {
+      const items = group.querySelectorAll("[data-reveal]");
+      if (!items.length) {
+        return;
+      }
+
+      gsap.fromTo(
+        items,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.72,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: group,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    });
+
+    revealItems.forEach((item) => {
+      const image = item.querySelector("img");
+      if (!image) {
+        return;
+      }
+
+      gsap.fromTo(
+        image,
+        { scale: 1.16, yPercent: -4, filter: "brightness(0.75)" },
+        {
+          scale: 1,
+          yPercent: 0,
+          filter: "brightness(1)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: item,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", animateHome, { once: true });
+  } else {
+    animateHome();
+  }
+</script>

@@ -5,6 +5,7 @@
 <section
   class="relative overflow-hidden bg-[#02050b] py-20 sm:py-24"
   aria-label="Proyectos destacados"
+  data-home-section
 >
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.04),transparent_46%)]"
@@ -12,38 +13,113 @@
   </div>
 
   <div class="relative mx-auto w-full max-w-6xl px-6 sm:px-10">
-    <header class="mx-auto max-w-4xl text-center">
+    <header class="mx-auto max-w-4xl text-center" data-reveal-group>
       <h2
         class="text-4xl font-extrabold uppercase tracking-tight text-white sm:text-5xl"
+        data-reveal
       >
         PROYECTOS DESTACADOS
       </h2>
-      <p class="mt-5 text-lg leading-relaxed text-zinc-400 sm:text-xl">
+      <p
+        class="mt-5 text-lg leading-relaxed text-zinc-400 sm:text-xl"
+        data-reveal
+      >
         Algunos de los proyectos que reflejan nuestra forma de trabajar, nuestro
         enfoque en la calidad y el compromiso con cada solución desarrollada.
       </p>
     </header>
 
-    <div class="mt-12 grid gap-4 md:mt-14 md:grid-cols-2 md:gap-6">
+    <div
+      class="mt-12 grid gap-4 md:mt-14 md:grid-cols-2 md:gap-6"
+      data-reveal-group
+    >
       <div class="grid gap-4 md:gap-6">
         <article
-          class="h-72 rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[25rem]"
+          class="group relative h-72 overflow-hidden rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[25rem]"
+          data-reveal
         >
+          <img
+            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80"
+            alt="Dashboard estrategico para analisis empresarial"
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+          >
+          </div>
+          <p
+            class="absolute bottom-3 left-3 text-sm font-semibold uppercase tracking-[0.15em] text-zinc-100"
+          >
+            Analisis
+          </p>
         </article>
         <article
-          class="h-56 rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[16rem]"
+          class="group relative h-56 overflow-hidden rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[16rem]"
+          data-reveal
         >
+          <img
+            src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=1200&q=80"
+            alt="Estudio de produccion multimedia profesional"
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+          >
+          </div>
+          <p
+            class="absolute bottom-3 left-3 text-sm font-semibold uppercase tracking-[0.15em] text-zinc-100"
+          >
+            Multimedia
+          </p>
         </article>
       </div>
 
       <div class="grid gap-4 md:gap-6">
         <article
-          class="h-56 rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[16rem]"
+          class="group relative h-56 overflow-hidden rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[16rem]"
+          data-reveal
         >
+          <img
+            src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80"
+            alt="Equipo de ingenieria desarrollando software"
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+          >
+          </div>
+          <p
+            class="absolute bottom-3 left-3 text-sm font-semibold uppercase tracking-[0.15em] text-zinc-100"
+          >
+            Software
+          </p>
         </article>
         <article
-          class="h-72 rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[25rem]"
+          class="group relative h-72 overflow-hidden rounded-none border border-zinc-800/85 bg-zinc-950/55 transition duration-300 hover:border-zinc-700 sm:h-[25rem]"
+          data-reveal
         >
+          <img
+            src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80"
+            alt="Celda robotica en entorno industrial"
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+          >
+          </div>
+          <p
+            class="absolute bottom-3 left-3 text-sm font-semibold uppercase tracking-[0.15em] text-zinc-100"
+          >
+            Robotica
+          </p>
         </article>
       </div>
     </div>
