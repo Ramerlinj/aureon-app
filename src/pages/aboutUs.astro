@@ -1,0 +1,457 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const areas = [
+  {
+    title: "Analisis",
+    subtitle: "Decision estrategica con datos reales",
+    description:
+      "Leemos tendencias, medimos comportamiento y transformamos informacion en planes accionables para direccion y operaciones.",
+    tone: "Investigacion, KPIs y arquitectura de informacion.",
+    accent: "#f7b500",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+    alt: "Equipo revisando analisis de datos en pantallas",
+  },
+  {
+    title: "Multimedia",
+    subtitle: "Historias visuales que capturan atencion",
+    description:
+      "Produccion creativa para marca, redes y campañas. Combinamos direccion de arte, video y motion para piezas con identidad propia.",
+    tone: "Branding visual, fotografia y contenido audiovisual.",
+    accent: "#16d1ff",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80",
+    alt: "Estacion de trabajo creativa para multimedia",
+  },
+  {
+    title: "Desarrollo de Software",
+    subtitle: "Plataformas solidas para crecer sin friccion",
+    description:
+      "Construimos productos web y moviles con enfoque en performance, mantenibilidad y escalabilidad para negocio y usuarios finales.",
+    tone: "Arquitectura, APIs y desarrollo full stack.",
+    accent: "#46d46a",
+    image:
+      "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1600&q=80",
+    alt: "Desarrollador trabajando codigo en entorno moderno",
+  },
+  {
+    title: "Redes",
+    subtitle: "Infraestructura conectada, segura y estable",
+    description:
+      "Disenamos topologias robustas y monitoreadas para asegurar continuidad, baja latencia y control en todos los puntos de acceso.",
+    tone: "Conectividad corporativa, seguridad y monitoreo.",
+    accent: "#6aa8ff",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80",
+    alt: "Servidores y cableado de red en centro de datos",
+  },
+  {
+    title: "Robotica",
+    subtitle: "Automatizacion inteligente para operaciones",
+    description:
+      "Integramos software, sensores y hardware para soluciones autonomas que aumentan precision, velocidad y eficiencia operativa.",
+    tone: "Prototipado, control y sistemas mecatronicos.",
+    accent: "#ff5579",
+    image:
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1600&q=80",
+    alt: "Brazo robotico industrial en linea de produccion",
+  },
+];
+---
+
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return "dark";
+  };
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+</script>
+
+<Layout>
+  <main class="about-us-page">
+    <section class="about-hero" aria-label="Presentacion About US">
+      <div class="hero-noise"></div>
+      <div class="hero-content">
+        <p class="hero-kicker hero-anim">AUREON // ABOUT US</p>
+        <h1 class="hero-title hero-anim">Areas Especializadas, Impacto Real</h1>
+        <p class="hero-copy hero-anim">
+          Cada equipo domina un frente distinto, pero todos trabajamos con la
+          misma obsesion: resultados potentes con ejecucion impecable.
+        </p>
+      </div>
+      <div class="hero-glow"></div>
+    </section>
+
+    <section class="cinematic-areas" aria-label="Areas de la empresa">
+      {
+        areas.map((area, index) => (
+          <article
+            class={`story-panel ${index % 2 === 0 ? "is-left" : "is-right"}`}
+            style={`--accent:${area.accent};`}
+          >
+            <div class="panel-media">
+              <img
+                src={area.image}
+                alt={area.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="panel-shade" />
+            <div class="panel-content-wrap">
+              <div class="panel-content">
+                <span class="panel-number">0{index + 1}</span>
+                <h2>{area.title}</h2>
+                <p class="panel-subtitle">{area.subtitle}</p>
+                <p class="panel-description">{area.description}</p>
+                <p class="panel-tone">{area.tone}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+  </main>
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const runAnimations = () => {
+    const heroItems = gsap.utils.toArray(".hero-anim");
+    const panels = gsap.utils.toArray(".story-panel");
+
+    gsap.fromTo(
+      heroItems,
+      { y: 50, opacity: 0, filter: "blur(6px)" },
+      {
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.1,
+        ease: "power4.out",
+        stagger: 0.15,
+      },
+    );
+
+    panels.forEach((panel, idx) => {
+      const media = panel.querySelector(".panel-media img");
+      const shade = panel.querySelector(".panel-shade");
+      const content = panel.querySelector(".panel-content");
+
+      gsap.fromTo(
+        media,
+        {
+          scale: 1.25,
+          yPercent: idx % 2 === 0 ? -6 : 6,
+          filter: "brightness(0.56) saturate(0.8)",
+        },
+        {
+          scale: 1,
+          yPercent: 0,
+          filter: "brightness(0.9) saturate(1)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
+
+      gsap.fromTo(
+        shade,
+        { opacity: 0.82 },
+        {
+          opacity: 0.46,
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top 78%",
+            end: "bottom 25%",
+            scrub: true,
+          },
+        },
+      );
+
+      gsap.fromTo(
+        content,
+        {
+          y: 90,
+          opacity: 0,
+          clipPath: "inset(0 0 100% 0)",
+        },
+        {
+          y: 0,
+          opacity: 1,
+          clipPath: "inset(0 0 0% 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    });
+
+    gsap.to(".hero-glow", {
+      yPercent: 35,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".about-hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runAnimations, {
+      once: true,
+    });
+  } else {
+    runAnimations();
+  }
+</script>
+
+<style>
+  .about-us-page {
+    --bg: #06080d;
+    --ink: #edf3ff;
+    color: var(--ink);
+    background:
+      radial-gradient(
+        circle at 10% 15%,
+        rgba(22, 209, 255, 0.2),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 88% 8%,
+        rgba(255, 85, 121, 0.24),
+        transparent 32%
+      ),
+      linear-gradient(180deg, #05070b 0%, #0a101c 28%, #05080f 100%);
+    min-height: 100svh;
+  }
+
+  .about-hero {
+    position: relative;
+    min-height: 92svh;
+    padding: 8.5rem 1.2rem 4rem;
+    overflow: clip;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 72rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero-kicker {
+    margin: 0;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.34em;
+    font-weight: 700;
+    color: #9de7f9;
+  }
+
+  .hero-title {
+    margin: 1rem auto 0;
+    max-width: 13ch;
+    text-transform: uppercase;
+    line-height: 0.92;
+    text-wrap: balance;
+    font-size: clamp(2.2rem, 9vw, 6.2rem);
+    letter-spacing: 0.025em;
+    color: #f2f7ff;
+  }
+
+  .hero-copy {
+    margin: 1.25rem auto 0;
+    max-width: 56ch;
+    color: #c3d5ec;
+    font-size: clamp(1rem, 2.2vw, 1.22rem);
+    line-height: 1.58;
+  }
+
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.3) 0.8px,
+      transparent 0.8px
+    );
+    background-size: 3px 3px;
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: -18rem;
+    width: min(70rem, 95vw);
+    aspect-ratio: 1 / 0.72;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(22, 209, 255, 0.28),
+      rgba(255, 85, 121, 0.12) 45%,
+      transparent 72%
+    );
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .cinematic-areas {
+    padding: 1rem 0 4rem;
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .story-panel {
+    position: relative;
+    min-height: min(86vh, 48rem);
+    border-block: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  .panel-media,
+  .panel-media img,
+  .panel-shade {
+    position: absolute;
+    inset: 0;
+  }
+
+  .panel-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .panel-shade {
+    z-index: 1;
+    background: linear-gradient(
+      115deg,
+      rgba(5, 8, 13, 0.86),
+      rgba(5, 8, 13, 0.24) 45%,
+      color-mix(in srgb, var(--accent), transparent 78%) 100%
+    );
+  }
+
+  .panel-content-wrap {
+    position: relative;
+    z-index: 2;
+    min-height: min(86vh, 48rem);
+    width: min(75rem, 100%);
+    margin-inline: auto;
+    display: grid;
+    align-items: center;
+    padding: 2.1rem 1.2rem;
+  }
+
+  .is-right .panel-content-wrap {
+    justify-items: end;
+  }
+
+  .panel-content {
+    width: min(34rem, 100%);
+    backdrop-filter: blur(2px);
+  }
+
+  .panel-number {
+    display: inline-block;
+    font-size: 0.84rem;
+    letter-spacing: 0.28em;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--accent), #ffffff 35%);
+    margin-bottom: 0.8rem;
+  }
+
+  .panel-content h2 {
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 0.9;
+    font-size: clamp(1.85rem, 6vw, 4.2rem);
+    letter-spacing: 0.02em;
+    color: #f6f8ff;
+  }
+
+  .panel-subtitle {
+    margin: 0.7rem 0 0;
+    color: color-mix(in srgb, var(--accent), #ffffff 42%);
+    font-size: clamp(0.98rem, 2.2vw, 1.2rem);
+    font-weight: 600;
+  }
+
+  .panel-description {
+    margin: 0.95rem 0 0;
+    color: #d2e0f1;
+    line-height: 1.6;
+    max-width: 50ch;
+  }
+
+  .panel-tone {
+    margin: 0.85rem 0 0;
+    color: #afc2d9;
+    font-size: 0.94rem;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 900px) {
+    .about-hero {
+      min-height: 76svh;
+      padding-top: 7.4rem;
+    }
+
+    .story-panel,
+    .panel-content-wrap {
+      min-height: 74svh;
+    }
+
+    .panel-shade {
+      background: linear-gradient(
+        180deg,
+        rgba(5, 8, 13, 0.84),
+        rgba(5, 8, 13, 0.38) 40%,
+        color-mix(in srgb, var(--accent), transparent 80%)
+      );
+    }
+
+    .is-right .panel-content-wrap {
+      justify-items: start;
+    }
+
+    .panel-content {
+      max-width: 30rem;
+    }
+  }
+</style>
