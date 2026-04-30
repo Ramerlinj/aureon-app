@@ -2,6 +2,7 @@
 import "../styles/globals.css";
 import Header from "../components/header/header.astro";
 import Footer from "../components/footer/Footer.astro";
+import Analytics from '@vercel/analytics/astro'
 ---
 
 <!doctype html>
@@ -15,6 +16,7 @@ import Footer from "../components/footer/Footer.astro";
     <title>Aureon System</title>
   </head>
   <body class="min-h-screen bg-[#05070b] text-slate-100">
+    <Analytics/>
     <Header />
     <slot />
     <Footer />
