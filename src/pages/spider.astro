@@ -1,0 +1,641 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SpiderScene from "../components/spider/SpiderScene";
+---
+
+<Layout>
+  <main class="spider-page">
+    <section class="hero" aria-label="Robot Arana QD020">
+      <div class="hero-canvas">
+        <SpiderScene client:only="react" />
+      </div>
+
+      <div class="hero-vignette"></div>
+      <div class="hero-grid"></div>
+
+      <div class="hero-overlay">
+        <div class="hero-top">
+          <span class="hero-kicker"></span>
+        </div>
+        <div class="hero-bottom">
+          <h1>Spidy</h1>
+          <p>
+            Spidy es nuestra mascota robotica: un robot profesional para aprender
+            ensamblaje, programacion y control en un mismo proyecto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info" aria-label="Informacion sobre Spidy">
+      <div class="info-header" data-reveal>
+        <h2>La mascota que convierte teoria en movimiento</h2>
+        <p>
+          Diseñado para estudiantes y principiantes, el QD020 permite construir
+          un robot cuadrupedo real, entender su logica de control y crear
+          acciones personalizadas desde cero.
+        </p>
+      </div>
+      <div class="info-grid">
+        <article class="info-card" data-reveal>
+          <h3>Hardware</h3>
+          <p>
+            Estructura de acrilico ligera, cuatro patas y ocho servos MG90 para
+            movimientos estables y precisos.
+          </p>
+        </article>
+        <article class="info-card" data-reveal>
+          <h3>Control</h3>
+          <p>
+            Placa ESP8266 con WiFi integrado. Control desde app, web o codigo en
+            Arduino y ACECode.
+          </p>
+        </article>
+        <article class="info-card" data-reveal>
+          <h3>Movimientos</h3>
+          <p>
+            Seis direcciones y nueve modos preprogramados: saludar, dormir,
+            bailar, pelear, flexiones, balanceo y reposo.
+          </p>
+        </article>
+      </div>
+      
+    </section>
+
+    <section class="history" aria-label="Historia de la mascota">
+      <div class="history-header" data-reveal>
+        <span class="info-kicker">Origen</span>
+        <h2>Como Spidy se convirtio en nuestra mascota</h2>
+      </div>
+
+      <div class="history-content" data-reveal>
+        <p>
+          La idea de adoptar al robot araña QD020 como mascota del proyecto
+          nacio de su capacidad para combinar tres mundos que muchas veces se
+          enseñan por separado: el ensamblaje de hardware, la programacion y el
+          control automatico. Desde el primer momento, Spidy demostro ser mas
+          que un kit educativo: es un companero que crece con quien lo construye.
+        </p>
+
+        <p>
+          Su diseño cuadrupedo con ocho servomotores MG90 le otorga una expresion
+          casi organica. Cada pata puede articularse con precision, lo que
+          permite crear gestos tan variados como saludar, bailar o simular una
+          pelea. Esa versatilidad de movimientos fue lo que lo hizo especial: no
+          solo camina, <em>comunica</em>.
+        </p>
+
+        <p>
+          El cerebro de Spidy es una placa basada en ESP8266 con WiFi integrado,
+          lo que abre la puerta al control remoto y a la programacion en lenguajes
+          como C/C++ a traves de Arduino o en bloques con ACECode. Esta flexibilidad
+          lo convierte en una herramienta accesible tanto para quien da sus primeros
+          pasos en robótica como para quien ya busca proyectos mas avanzados con
+          Python.
+        </p>
+      </div>
+
+      <div class="history-timeline" data-reveal>
+        <div class="timeline-item">
+          <span class="timeline-label">Ensamblaje</span>
+          <p>
+            La estructura de acrilico y sus tornillos uniformes hacen que el
+            montaje sea claro y ordenado. Quien arma a Spidy aprende, pieza a
+            pieza, como se articula un robot real.
+          </p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-label">Programacion</span>
+          <p>
+            Con nueve modos de accion preprogramados y la posibilidad de crear
+            movimientos propios, Spidy invita a experimentar con logica, secuencias
+            y grados de libertad.
+          </p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-label">Control</span>
+          <p>
+            Desde una aplicacion movil hasta conexion WiFi directa, el robot puede
+            operarse de forma manual o automatica, integrandose en proyectos de
+            automatizacion y domotica.
+          </p>
+        </div>
+      </div>
+
+      <div class="history-impact" data-reveal>
+        <h3>Lo que Spidy ensena</h3>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <span class="impact-number">01</span>
+            <p>Pensamiento logico y estructurado al planificar movimientos y secuencias.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">02</span>
+            <p>Comprension de hardware: servomotores, controladores y alimentacion con bateria 18650.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">03</span>
+            <p>Resolucion de problemas reales durante el montaje y la depuracion de codigo.</p>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">04</span>
+            <p>Creatividad para diseñar nuevas acciones y comportamientos personalizados.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-closing" data-reveal>
+        <p>
+          Spidy no es solo un robot araña: es la puerta de entrada a la robótica
+          para estudiantes, educadores y curiosos. Desde ferias cientificas hasta
+          proyectos de informatica en el hogar, cada interaccion con el QD020
+          convierte la teoria en algo que se puede ver, tocar y programar.
+        </p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const hero = document.querySelector(".hero");
+  const revealItems = document.querySelectorAll("[data-reveal]");
+
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+  const updateHero = () => {
+    if (!hero) {
+      return;
+    }
+    const heroTop = hero.offsetTop;
+    const heroHeight = hero.offsetHeight || 1;
+    const progress = clamp((window.scrollY - heroTop) / heroHeight, 0, 1);
+    hero.style.setProperty("--scroll-progress", progress.toFixed(3));
+  };
+
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) {
+      return;
+    }
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateHero();
+      ticking = false;
+    });
+  };
+
+  let resizeTimeout;
+  const onResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(updateHero, 100);
+  };
+
+  updateHero();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onResize, { passive: true });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+  }
+</script>
+
+<style>
+  .spider-page {
+    min-height: 100vh;
+    background: #030303;
+    color: #f2f4f8;
+  }
+
+  .hero {
+    position: relative;
+    --scroll-progress: 0;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transform: scale(calc(1 + (var(--scroll-progress) * 0.04)));
+    transition: transform 0.2s ease-out;
+  }
+
+  .spider-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(190, 27, 27, 0.18),
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 85% 18%,
+        rgba(122, 160, 255, 0.12),
+        transparent 48%
+      ),
+      radial-gradient(
+        circle at 70% 90%,
+        rgba(42, 211, 255, 0.1),
+        transparent 55%
+      ),
+      linear-gradient(180deg, rgba(3, 3, 3, 0.2), rgba(3, 3, 3, 0.9));
+    opacity: calc(1 - (var(--scroll-progress) * 0.4));
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      linear-gradient(transparent 94%, rgba(255, 255, 255, 0.05) 94%),
+      linear-gradient(90deg, transparent 94%, rgba(255, 255, 255, 0.05) 94%);
+    background-size: 30px 30px;
+    opacity: calc(0.18 - (var(--scroll-progress) * 0.08));
+    mask-image: radial-gradient(
+      circle at 30% 10%,
+      rgba(0, 0, 0, 1),
+      transparent 70%
+    );
+    transform: translateY(calc(var(--scroll-progress) * -30px));
+    pointer-events: none;
+  }
+
+  .hero-overlay {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(2.5rem, 5vw, 4rem);
+    transform: translateY(calc(var(--scroll-progress) * -70px));
+    transition: transform 0.2s ease-out;
+  }
+
+  .hero-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(242, 244, 248, 0.7);
+  }
+
+  .hero-bottom {
+    max-width: 36rem;
+  }
+
+  .hero-bottom h1 {
+    margin: 0 0 0.7rem;
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  .hero-bottom p {
+    margin: 0;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.7;
+    color: rgba(242, 244, 248, 0.75);
+  }
+
+  .hero-specs {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(242, 244, 248, 0.6);
+  }
+
+  .info {
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem) 6rem;
+    max-width: 70rem;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .info-header h2 {
+    margin: 0.6rem 0 0.8rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+
+  .info-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(242, 244, 248, 0.65);
+  }
+
+  .info-header p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(242, 244, 248, 0.72);
+  }
+
+  .info-grid {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .info-card {
+    padding: 1.4rem;
+    border-radius: 1.2rem;
+    background: rgba(10, 12, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .info-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(242, 244, 248, 0.85);
+  }
+
+  .info-card p {
+    margin: 0;
+    color: rgba(242, 244, 248, 0.68);
+    line-height: 1.6;
+  }
+
+  .info-footer {
+    margin: 0;
+    color: rgba(242, 244, 248, 0.6);
+    font-size: 0.95rem;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .history {
+    padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+    max-width: 70rem;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .history-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .history-header h2 {
+    margin: 0.6rem 0 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+
+  .history-content {
+    max-width: 48rem;
+    margin-bottom: 3rem;
+  }
+
+  .history-content p {
+    margin: 0 0 1.4rem;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(242, 244, 248, 0.72);
+  }
+
+  .history-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .history-content em {
+    color: rgba(242, 244, 248, 0.9);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .history-timeline {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+    padding: 2rem;
+    border-radius: 1.2rem;
+    background: rgba(10, 12, 18, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 2px solid rgba(190, 27, 27, 0.4);
+  }
+
+  .timeline-item:last-child {
+    border-left-color: rgba(42, 211, 255, 0.4);
+  }
+
+  .timeline-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(190, 27, 27, 0.85);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-item:last-child .timeline-label {
+    color: rgba(42, 211, 255, 0.85);
+  }
+
+  .timeline-item p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: rgba(242, 244, 248, 0.65);
+  }
+
+  .history-impact {
+    margin-bottom: 3.5rem;
+  }
+
+  .history-impact h3 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    letter-spacing: -0.01em;
+  }
+
+  .impact-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .impact-item {
+    padding: 1.3rem;
+    border-radius: 1rem;
+    background: rgba(10, 12, 18, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.3s ease;
+  }
+
+  .impact-item:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .impact-number {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: rgba(190, 27, 27, 0.7);
+    margin-bottom: 0.6rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .impact-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(242, 244, 248, 0.65);
+  }
+
+  .history-closing {
+    max-width: 48rem;
+    padding: 2rem;
+    border-radius: 1.2rem;
+    background: linear-gradient(135deg, rgba(190, 27, 27, 0.08), rgba(42, 211, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .history-closing p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: rgba(242, 244, 248, 0.8);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-canvas,
+    .hero-overlay,
+    .hero-grid,
+    .hero-vignette {
+      transform: none;
+      transition: none;
+    }
+
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-overlay {
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .info {
+      padding: 2.5rem 1.2rem 4rem;
+    }
+
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .history {
+      padding: 3rem 1.2rem 4rem;
+    }
+
+    .history-timeline {
+      padding: 1.5rem;
+    }
+
+    .impact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      min-height: 90vh;
+    }
+
+    .hero-overlay {
+      padding: 1.5rem 1rem 2.5rem;
+    }
+
+    .hero-bottom h1 {
+      font-size: clamp(1.8rem, 10vw, 3rem);
+    }
+
+    .hero-bottom p {
+      font-size: 0.92rem;
+    }
+
+    .info-header h2,
+    .history-header h2 {
+      font-size: clamp(1.5rem, 7vw, 2.2rem);
+    }
+
+    .info-header p {
+      font-size: 0.95rem;
+    }
+
+    .info-card {
+      padding: 1.2rem;
+    }
+
+    .history-content p {
+      font-size: 0.95rem;
+    }
+
+    .timeline-item {
+      padding-left: 1.2rem;
+    }
+
+    .timeline-item p {
+      font-size: 0.88rem;
+    }
+
+    .history-impact h3 {
+      font-size: clamp(1.2rem, 5vw, 1.5rem);
+    }
+
+    .impact-item p {
+      font-size: 0.85rem;
+    }
+
+    .history-closing p {
+      font-size: 0.95rem;
+    }
+  }
+</style>
