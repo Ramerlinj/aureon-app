@@ -4,38 +4,45 @@ const links = [
   { label: "Sobre Nosotros", href: "/aboutUs" },
   { label: "Spider", href: "/spider" },
 ];
-import { ModeToggle } from "@/components/ModeToggle";
 ---
 
 <header class="fixed left-0 top-0 z-50 w-full px-3 pt-3 sm:px-6 sm:pt-5">
   <nav
-    class="mx-auto grid w-full max-w-3xl grid-cols-[auto_1fr_auto] items-center gap-3 overflow-hidden rounded-2xl border border-white/12 bg-[radial-gradient(120%_130%_at_0%_40%,rgba(132,160,255,0.12),transparent_42%),radial-gradient(120%_130%_at_100%_50%,rgba(0,190,255,0.08),transparent_44%),#090b10] px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_10px_30px_rgba(0,0,0,0.4)] backdrop-blur-md"
+    class="mx-auto flex w-full max-w-3xl items-center justify-between overflow-hidden rounded-2xl border border-white/12 bg-[radial-gradient(120%_130%_at_0%_40%,rgba(132,160,255,0.12),transparent_42%),radial-gradient(120%_130%_at_100%_50%,rgba(0,190,255,0.08),transparent_44%),#090b10] px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_10px_30px_rgba(0,0,0,0.4)] backdrop-blur-md"
     aria-label="Navegacion principal"
   >
     <a
       href="/"
-      class="inline-flex items-center gap-2.5 text-slate-100 no-underline"
+      class="inline-flex shrink-0 items-center gap-2.5 text-slate-100 no-underline"
     >
-      <span
-        class="grid h-6 w-6 place-items-center rounded-md border border-white/25 bg-white/6 text-xs font-bold tracking-[0.04em]"
-      >
-        A
-      </span>
-      <span
-        class="hidden text-sm font-semibold tracking-[0.08em] text-zinc-100 sm:inline"
-        >AUREON</span
-      >
+      <img class="w-9 h-9 sm:w-10 sm:h-10" src="/logo-aureon.svg" alt="Logo Aureon" srcset="">
     </a>
 
+    <button
+      id="mobile-menu-btn"
+      type="button"
+      class="flex h-9 w-9 items-center justify-center rounded-lg text-zinc-300 transition hover:bg-white/8 hover:text-zinc-100 sm:hidden"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+    >
+      <svg id="menu-icon-open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="menu-icon-close" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
     <ul
-      class="mx-auto flex min-w-0 list-none items-center justify-center gap-1 overflow-x-auto px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      id="mobile-menu"
+      class="hidden absolute left-3 right-3 top-full z-50 flex-col gap-1 rounded-xl border border-white/12 bg-[#090b10]/95 p-3 shadow-2xl backdrop-blur-md sm:relative sm:left-auto sm:right-auto sm:top-auto sm:mx-auto sm:mt-0 sm:flex sm:min-w-0 sm:flex-row sm:gap-1 sm:overflow-x-auto sm:rounded-none sm:border-none sm:bg-transparent sm:p-0 sm:shadow-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {
         links.map((link) => (
           <li>
             <a
               href={link.href}
-              class="inline-flex whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-zinc-300/95 no-underline transition duration-200 hover:bg-white/8 hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+              class="mobile-link inline-flex w-full whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-zinc-300/95 no-underline transition duration-200 hover:bg-white/8 hover:text-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70 sm:w-auto"
             >
               {link.label}
             </a>
@@ -43,9 +50,56 @@ import { ModeToggle } from "@/components/ModeToggle";
         ))
       }
     </ul>
-
-    <div class="flex items-center justify-end">
-      <ModeToggle client:load />
-    </div>
   </nav>
 </header>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const openIcon = document.getElementById("menu-icon-open");
+    const closeIcon = document.getElementById("menu-icon-close");
+
+    if (!btn || !menu) return;
+
+    function openMenu() {
+      menu.classList.remove("hidden");
+      menu.classList.add("flex");
+      openIcon.classList.add("hidden");
+      closeIcon.classList.remove("hidden");
+      btn.setAttribute("aria-expanded", "true");
+    }
+
+    function closeMenu() {
+      menu.classList.add("hidden");
+      menu.classList.remove("flex");
+      openIcon.classList.remove("hidden");
+      closeIcon.classList.add("hidden");
+      btn.setAttribute("aria-expanded", "false");
+    }
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (menu.classList.contains("hidden")) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
+
+    menu.querySelectorAll(".mobile-link").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 640) {
+          closeMenu();
+        }
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth >= 640) return;
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        closeMenu();
+      }
+    });
+  });
+</script>
